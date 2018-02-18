@@ -2,21 +2,17 @@
 import React from 'react'
 import Field from './component/rectangle'
 
-const { compose, withProps, withStateHandlers } = require('recompose')
+const { compose, withProps } = require('recompose')
 const {
   withScriptjs,
   withGoogleMap,
-  GoogleMap,
-  Marker
+  GoogleMap
 } = require('react-google-maps')
-const { InfoBox } = require('react-google-maps/lib/components/addons/InfoBox')
 
 const fieldLatitude = 26.107023
 
 const fieldOneLongitudeStart = -80.424711
 const fieldOneLongitudeEnd = -80.424114
-
-const configTwoDifference = 0.000600
 
 const fieldTwoLongitudeStart = -80.423917
 const fieldTwoLongitudeEnd = -80.423321
@@ -54,13 +50,6 @@ const StyledMapWithAnInfoBox = compose(
     mapElement: <div style={{ height: `100%` }}/>,
     center: { lat: 26.107, lng: -80.421 }
   }),
-  withStateHandlers(() => ({
-    isOpen: false
-  }), {
-    onToggleOpen: ({ isOpen }) => () => ({
-      isOpen: !isOpen
-    })
-  }),
   withScriptjs,
   withGoogleMap
 )(props =>
@@ -70,17 +59,14 @@ const StyledMapWithAnInfoBox = compose(
     defaultCenter={props.center}
   >
     {
-      fieldList.map( (field) => {
+
+      fieldList.map((field, index) => {
         return (
-          <div>
-            <Field key={field[0]} content={'this is test'} startLongitude={field[0]} latitude={fieldLatitude}/>
-            <Field key={field[0] + 0.000300} content={'this is test'} startLongitude={field[0] + 0.000300} latitude={fieldLatitude}/>
-          </div>
+          <Field key={index} fieldNumber={index + 1} startLongitude={field[0]} latitude={fieldLatitude}/>
         )
       })
     }
-    {/*<Field content={'this is test'} startLongitude={fieldOneLongitudeStart} latitude={fieldLatitude}/>*/}
-    {/*<Field content={'this is test 2'} startLongitude={fieldOneLongitudeStart + configTwoDifference} latitude={fieldLatitude}/>*/}
+
   </GoogleMap>)
 )
 

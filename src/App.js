@@ -2,7 +2,9 @@ import React, { Component } from 'react'
 // import logo from './logo.svg'
 import './App.css'
 // import MyFancyComponent from './FieldMap.js'
-import StyledMapWithAnInfoBox from './styledinfobox.js'
+// import StyledMapWithAnInfoBox from './styledinfobox.js'
+import Fields from './styledinfobox'
+import Form from './component/form'
 
 class App extends Component {
   render() {
@@ -15,7 +17,8 @@ class App extends Component {
         {/*<p className='App-intro'>*/}
           {/*To get started, edit <code>src/App.js</code> and save to reload.*/}
         {/*</p>*/}
-        <StyledMapWithAnInfoBox />
+        <Fields />
+        <Form></Form>
       </div>
     )
   }
