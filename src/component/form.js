@@ -29,12 +29,10 @@ class ConnectedForm extends Component {
 
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value })
-    // this.props.updateFieldDetail({ day: this.state.day, time: this.state.time })
   }
 
   handleSubmit(event) {
     event.preventDefault()
-    // const title = this.state
     const day = event.target.elements.day.value
     const time = event.target.elements.time.value
     this.props.updateFieldDetail({ day: day, time: time })

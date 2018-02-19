@@ -78,7 +78,7 @@ class AField extends Component {
         }
         return (
           <div key={key}>
-            {<FieldInfoBox latitude={z} longitude={number} content={coach} color={color}/>}
+            {<FieldInfoBox latitude={latLng.lat()} longitude={number} content={coach} color={color}/>}
             <Rectangle bounds={latLngBounds} options={newVar}/>
           </div>
         )

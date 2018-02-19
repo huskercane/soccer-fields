@@ -60,26 +60,25 @@ const StyledMapWithAnInfoBox = compose(
   withScriptjs,
   withGoogleMap
 )(props =>
-  <div>
+  (
     <Paper className={styles.root} elevation={4}>
-      (<GoogleMap
-      mapTypeId={google.maps.MapTypeId.SATELLITE}
-      defaultZoom={18}
-      defaultCenter={props.center}
-    >
-      {
+      <GoogleMap
+        mapTypeId={google.maps.MapTypeId.SATELLITE}
+        defaultZoom={18}
+        defaultCenter={props.center}
+      >
+        {
 
-        fieldList.map((field, index) => {
-          return (
-            <Field key={index} fieldNumber={index + 1} startLongitude={field[0]} latitude={fieldLatitude}/>
-          )
-        })
-      }
+          fieldList.map((field, index) => {
+            return (
+              <Field key={index} fieldNumber={index + 1} startLongitude={field[0]} latitude={fieldLatitude}/>
+            )
+          })
+        }
 
-    </GoogleMap>
+      </GoogleMap>
     </Paper>
-  </div>
-
+  )
 )
 
 export default StyledMapWithAnInfoBox

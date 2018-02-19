@@ -38,7 +38,7 @@ class FieldInfoBox extends Component {
             closeBoxURL: ``,
             enableEventPropagation: true,
             pane: 'overlayLayer',
-            // pixelOffset: new google.maps.Size(-140, -60),
+            pixelOffset: new google.maps.Size(-50, 30),
             alignBottom: true,
             boxStyle: {
               // boxShadow: `3px 3px 10px rgba(0,0,0,0.6)`
@@ -48,7 +48,7 @@ class FieldInfoBox extends Component {
         }
       >
         <div id='content' className={'google_map_infobox'}>
-          <h1 id='firstHeading' className='firstHeading'>{this.state.content}</h1>
+          {this.state.content}
         </div>
       </InfoBox>
     )
