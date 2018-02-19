@@ -23,44 +23,52 @@ class AField extends Component {
 
   componentWillReceiveProps(props) {
     this.setState({
-        ...props
-      }
+      ...props
+    }
     )
   }
 
+  _number
+
   render() {
-    const configTwoDifference = 0.000600
+    const configTwoDifference = 0.000300
     const fieldHeight = 0.000153
     const fieldWidth = 0.000240
-    let startLatitude = this.props.latitude
-    const x = startLatitude + fieldHeight
+    let startLatitude = this.state.latitude
 
-    const fieldNumber = this.props.fieldNumber
+    const fieldNumber = this.state.fieldNumber
     const day = this.state.action.day
     const field = this.state[day] ? this.state[day] : {}
 
     const fieldSchedule = field[fieldNumber]
-    const colors = ['#4885ed', '#db3236', 'f4c20d', '3cba54']
+    const colors = ['#4885ed', '#db3236', '#f4c20d', '#4885ed', '#3cba54', '#db3236']
 
-    const fileDetail = fieldSchedule ? fieldSchedule[this.state.action.time] : 0
-    const config = fileDetail === 0 ? [] : Array.from(new Array(fileDetail.config), (val, index) => index)
+    const fileDetail = fieldSchedule ? fieldSchedule[this.state.action.time] : undefined
+    const config = fileDetail === undefined ? [] : Array.from(new Array(fileDetail.config), (val, index) => index)
+
+    let z = startLatitude
     return (
       // iterate over all field in config and add to map
       config.map((key) => {
+        let x = z + fieldHeight
         const coach = fileDetail[key + 1].coach
 
-        const latLng = new google.maps.LatLng(startLatitude, this.props.startLongitude)
-        const latLng2 = new google.maps.LatLng(x, this.props.startLongitude + fieldWidth)
-        const latLng3 = new google.maps.LatLng(startLatitude, this.props.startLongitude + fieldWidth + 0.000100)
-        const latLng4 = new google.maps.LatLng(x, this.props.startLongitude + 2 * fieldWidth + 0.000100)
+        const latLng = new google.maps.LatLng(z, this.state.startLongitude)
+
+        let number = this.state.startLongitude + fieldWidth
+        const latLng2 = new google.maps.LatLng(x, number)
+        const latLng3 = new google.maps.LatLng(z, number + 0.000100)
+        const _number = this.state.startLongitude + 2 * fieldWidth
+        const latLng4 = new google.maps.LatLng(x, _number + 0.000100)
 
         let latLngBounds = new google.maps.LatLngBounds(latLng, latLng2)
-        if (key % 2 === 0) {
+        if (key % 2 === 1) {
           latLngBounds = new google.maps.LatLngBounds(latLng3, latLng4)
-          startLatitude = startLatitude + configTwoDifference
+          z = z + configTwoDifference
+          number = _number
         }
 
-        const color = colors[key % 4]
+        const color = colors[key % 6]
         const newVar = {
           strokeColor: color,
           strokeOpacity: 0.8,
@@ -70,7 +78,7 @@ class AField extends Component {
         }
         return (
           <div key={key}>
-            {<FieldInfoBox latitude={startLatitude} longitude={this.props.startLongitude} content={coach}/>}
+            {<FieldInfoBox latitude={z} longitude={number} content={coach} color={color}/>}
             <Rectangle bounds={latLngBounds} options={newVar}/>
           </div>
         )

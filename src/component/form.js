@@ -3,6 +3,11 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 // import uuidv1 from "uuid";
 import { updateFieldDetail } from '../action/expense'
+import Button from 'material-ui/Button'
+import Select from 'material-ui/Select'
+import { MenuItem } from 'material-ui/Menu'
+import Paper from 'material-ui/Paper'
+import { FormControl, FormHelperText } from 'material-ui/Form'
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -23,8 +28,8 @@ class ConnectedForm extends Component {
   }
 
   handleChange(event) {
-    // TODO: set these in the state
-    this.setState({ [event.target.id]: event.target.value })
+    this.setState({ [event.target.name]: event.target.value })
+    // this.props.updateFieldDetail({ day: this.state.day, time: this.state.time })
   }
 
   handleSubmit(event) {
@@ -33,42 +38,86 @@ class ConnectedForm extends Component {
     const day = event.target.elements.day.value
     const time = event.target.elements.time.value
     this.props.updateFieldDetail({ day: day, time: time })
-    this.setState({ title: '', day: day, time: time })
+    this.setState({ day: day, time: time })
   }
 
   render() {
-    const { day, time } = this.state
+    // const { day, time } = this.state
+    const styles = theme => ({
+      root: theme.mixins.gutters({
+        paddingTop: 16,
+        paddingBottom: 16,
+        marginTop: theme.spacing.unit * 3
+      }),
+      form: {
+        display: 'flex',
+        flexWrap: 'wrap'
+      },
+      formControl: {
+        margin: theme.spacing.unit,
+        minWidth: 120
+      },
+      button:
+        {
+          margin: theme.spacing.unit
+        },
+      input: {
+        display: 'none'
+      },
+      selectEmpty: {
+        marginTop: theme.spacing.unit * 2
+      }
+    })
+
     return (
-      <form onSubmit={this.handleSubmit}>
-        <div className='form-group'>
-          <label htmlFor='day'>Day</label>
-          <input
-            type='text'
-            className='form-control'
-            id='title'
-            value={day + '-' + time}
-            onChange={this.handleChange}
-          />
-        </div>
-        <select id='day' name='day'>
-          <option value='' />
-          <option value='1'>Monday</option>
-          <option value='2'>Tuesday</option>
-          <option value='3'>Wednesday</option>
-          <option value='4'>Thursday</option>
-          <option value='5'>Friday</option>
-        </select>
-        <label htmlFor='time'>time</label>
-        <select id='time' name='time'>
-          <option value='' />
-          <option value='1'>5:45-6:45</option>
-          <option value='2'>6:45-7:45</option>
-          <option value='3'>7:45-8:45</option>
-        </select>
-        <button type='submit' className='btn btn-success btn-lg'>
-          SAVE
-        </button>
-      </form>
+      <Paper className={styles.root} elevation={4}>
+        <form className={styles.form} autoComplete='off' onSubmit={this.handleSubmit}>
+          <FormControl className={styles.formControl}>
+            <Select
+              value={this.state.day}
+              onChange={this.handleChange}
+              inputProps={{
+                name: 'day',
+                id: 'day-simple'
+              }}
+            >
+              <MenuItem value=''>
+                <em>None</em>
+              </MenuItem>
+              <MenuItem value={1}>Monday</MenuItem>
+              <MenuItem value={2}>Tuesday</MenuItem>
+              <MenuItem value={3}>Wednesday</MenuItem>
+              <MenuItem value={4}>Thursday</MenuItem>
+              <MenuItem value={5}>Friday</MenuItem>
+              <MenuItem value={6}>Saturday</MenuItem>
+              <MenuItem value={7}>Sunday</MenuItem>
+            </Select>
+            <FormHelperText>Day of Practice</FormHelperText>
+          </FormControl>
+          <FormControl className={styles.formControl}>
+            <Select
+              value={this.state.time}
+              onChange={this.handleChange}
+              inputProps={{
+                name: 'time',
+                id: 'time-simple'
+              }}>
+              <MenuItem value=''>
+                <em>None</em>
+              </MenuItem>
+              <MenuItem value={1}>5:45-6:4</MenuItem>
+              <MenuItem value={2}>6:45-7:45</MenuItem>
+              <MenuItem value={3}>7:45-8:45</MenuItem>
+            </Select>
+            <FormHelperText>Time of Practice</FormHelperText>
+          </FormControl>
+          <FormControl className={styles.formControl}>
+            <Button type='submit' variant='raised' className={styles.button}>
+              Update Fields
+            </Button>
+          </FormControl>
+        </form>
+      </Paper>
     )
   }
 }

@@ -1,6 +1,7 @@
 /* global google */
 import React from 'react'
 import Field from './component/rectangle'
+import Paper from 'material-ui/Paper'
 
 const { compose, withProps } = require('recompose')
 const {
@@ -41,7 +42,13 @@ const fieldList = [
   [fieldSixLongitudeStart, fieldSixLongitudeEnd],
   [fieldSevenLongitudeStart, fieldSevenLongitudeEnd]
 ]
-
+const styles = theme => ({
+  root: theme.mixins.gutters({
+    paddingTop: 16,
+    paddingBottom: 16,
+    marginTop: theme.spacing.unit * 3
+  })
+})
 const StyledMapWithAnInfoBox = compose(
   withProps({
     googleMapURL: 'https://maps.googleapis.com/maps/api/js?key=AIzaSyC4R6AN7SmujjPUIGKdyao2Kqitzr1kiRg&v=3.exp&libraries=geometry,drawing,places',
@@ -53,21 +60,26 @@ const StyledMapWithAnInfoBox = compose(
   withScriptjs,
   withGoogleMap
 )(props =>
-  (<GoogleMap
-    mapTypeId={google.maps.MapTypeId.SATELLITE}
-    defaultZoom={18}
-    defaultCenter={props.center}
-  >
-    {
+  <div>
+    <Paper className={styles.root} elevation={4}>
+      (<GoogleMap
+      mapTypeId={google.maps.MapTypeId.SATELLITE}
+      defaultZoom={18}
+      defaultCenter={props.center}
+    >
+      {
 
-      fieldList.map((field, index) => {
-        return (
-          <Field key={index} fieldNumber={index + 1} startLongitude={field[0]} latitude={fieldLatitude}/>
-        )
-      })
-    }
+        fieldList.map((field, index) => {
+          return (
+            <Field key={index} fieldNumber={index + 1} startLongitude={field[0]} latitude={fieldLatitude}/>
+          )
+        })
+      }
 
-  </GoogleMap>)
+    </GoogleMap>
+    </Paper>
+  </div>
+
 )
 
 export default StyledMapWithAnInfoBox

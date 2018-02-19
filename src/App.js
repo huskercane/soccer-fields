@@ -5,21 +5,32 @@ import './App.css'
 // import StyledMapWithAnInfoBox from './styledinfobox.js'
 import Fields from './styledinfobox'
 import Form from './component/form'
+import 'typeface-roboto'
+import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles'
+import { purple, green } from 'material-ui/colors'
+
+// import logo from './logo.svg';
+import MenuAppBar from './component/MenuAppBar.js'
+
 
 class App extends Component {
   render() {
+    const theme = createMuiTheme({
+      palette: {
+        primary: purple,
+        secondary: green
+      },
+      status: {
+        danger: 'orange'
+      }
+    })
+
     return (
-      <div className='App'>
-        {/*<header className='App-header'>*/}
-          {/*<img src={logo} className='App-logo' alt='logo' />*/}
-          {/*<h1 className='App-title'>Welcome to React</h1>*/}
-        {/*</header>*/}
-        {/*<p className='App-intro'>*/}
-          {/*To get started, edit <code>src/App.js</code> and save to reload.*/}
-        {/*</p>*/}
-        <Fields />
-        <Form></Form>
-      </div>
+      <MuiThemeProvider theme={theme}>
+        <MenuAppBar/>
+        <Fields/>
+        <Form/>
+      </MuiThemeProvider>
     )
   }
 }

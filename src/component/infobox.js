@@ -13,6 +13,7 @@ class FieldInfoBox extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      ...props
       // fieldDetail: {},
       // action: {
       //   time: 0
@@ -20,13 +21,33 @@ class FieldInfoBox extends Component {
     }
   }
 
+  componentWillReceiveProps(props) {
+    this.setState({
+        ...props
+      }
+    )
+  }
+
   render() {
+    const color = this.state.color
     return (
       <InfoBox
-        defaultPosition={new google.maps.LatLng(this.props.latitude, this.props.longitude)}
-        options={{ closeBoxURL: ``, enableEventPropagation: true }}
+        defaultPosition={new google.maps.LatLng(this.state.latitude, this.state.longitude)}
+        options={
+          {
+            closeBoxURL: ``,
+            enableEventPropagation: true,
+            pane: 'overlayLayer',
+            // pixelOffset: new google.maps.Size(-140, -60),
+            alignBottom: true,
+            boxStyle: {
+              // boxShadow: `3px 3px 10px rgba(0,0,0,0.6)`
+              boxShadow: `3px 3px 10px ${color}`
+            }
+          }
+        }
       >
-        <div id='content'>
+        <div id='content' className={'google_map_infobox'}>
           <h1 id='firstHeading' className='firstHeading'>{this.state.content}</h1>
         </div>
       </InfoBox>
