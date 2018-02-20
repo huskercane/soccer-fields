@@ -5,9 +5,9 @@ import { withScriptjs, withGoogleMap, GoogleMap, Marker } from 'react-google-map
 const MyMapComponent = compose(
   withProps({
     googleMapURL: 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBm7TFrjFh6jFvFu43tcLomNu9CqCMKSOM&v=3.exp&libraries=geometry,drawing,places',
-    loadingElement: <div style={{ height: `100%` }} />,
-    containerElement: <div style={{ height: `400px` }} />,
-    mapElement: <div style={{ height: `100%` }} />
+    loadingElement: <div style={{ height: `100%` }}/>,
+    containerElement: <div style={{ height: `400px` }}/>,
+    mapElement: <div style={{ height: `100%` }}/>
   }),
   withScriptjs,
   withGoogleMap
@@ -16,7 +16,7 @@ const MyMapComponent = compose(
     defaultZoom={18}
     defaultCenter={{ lat: 26.107, lng: -80.421 }}
   >
-    {props.isMarkerShown && <Marker position={{ lat: 26.107, lng: -80.421 }} onClick={props.onMarkerClick} />}
+    {props.isMarkerShown && <Marker position={{ lat: 26.107, lng: -80.421 }} onClick={props.onMarkerClick}/>}
   </GoogleMap>)
 )
 
@@ -49,4 +49,5 @@ class MyFancyComponent extends React.PureComponent {
     )
   }
 }
+
 export default MyFancyComponent
