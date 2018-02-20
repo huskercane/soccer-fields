@@ -47,9 +47,15 @@ class ConnectedForm extends Component {
         paddingBottom: 16,
         marginTop: theme.spacing.unit * 3
       }),
+      paper: {
+        padding: theme.spacing.unit * 2,
+        height: '100%',
+        paddingTop: 10, paddingBotom: 10
+      },
       form: {
         display: 'flex',
-        flexWrap: 'wrap'
+        flexWrap: 'wrap',
+        flexGrow: 1
       },
       formControl: {
         margin: theme.spacing.unit,
@@ -68,7 +74,7 @@ class ConnectedForm extends Component {
     })
 
     return (
-      <Paper className={styles.root} elevation={4}>
+      <Paper className={styles.paper} elevation={4}>
         <form className={styles.form} autoComplete='off' onSubmit={this.handleSubmit}>
           <FormControl className={styles.formControl}>
             <Select

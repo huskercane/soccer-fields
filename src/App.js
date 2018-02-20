@@ -11,6 +11,8 @@ import { purple, green } from 'material-ui/colors'
 
 // import logo from './logo.svg';
 import MenuAppBar from './component/MenuAppBar.js'
+import Grid from 'material-ui/Grid'
+import Paper from 'material-ui/Paper'
 
 
 class App extends Component {
@@ -24,12 +26,30 @@ class App extends Component {
         danger: 'orange'
       }
     })
+    const styles = theme => ({
+      grid: {
+        flexGrow: 1,
+        marginTop: 10,
+        marginBottom: 20
+      },
+      root: {
+        width: '100%'
+      }
+    })
 
     return (
       <MuiThemeProvider theme={theme}>
         <MenuAppBar/>
-        <Fields/>
-        <Form/>
+        <Grid container className={styles.grid}>
+          <Grid item sm={12} lg={12} xl={12}>
+              <Fields/>
+          </Grid>
+          <Grid item sm={12} lg={12} xl={12}>
+            <Grid container alignItems={'center'} direction={'row'} justify={'center'}>
+              <Form/>
+            </Grid>
+          </Grid>
+        </Grid>
       </MuiThemeProvider>
     )
   }
